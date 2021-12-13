@@ -60,13 +60,14 @@ function buildCharts(sample) {
     
     // 3. Create a variable that holds the samples array. 
     var samples = data.samples;
+    var metadata = data.metadata;
 
     // 4. Create a variable that filters the samples for the object with the desired sample number.
     var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
     //  5. Create a variable that holds the first sample in the array.
     var result = resultArray[0];
     console.log(result);
-
+    
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
 
@@ -107,7 +108,7 @@ function buildCharts(sample) {
     Plotly.newPlot("bar", barData, barLayout);
     
     var bubbleOtuLabels = result.otu_labels;
-    var bubbleSampleValues = result.sample_values 
+    var bubbleSampleValues = result.sample_values; 
     
     // Bar and Bubble charts
     // 1. Create the trace for the bubble chart.
@@ -128,11 +129,11 @@ function buildCharts(sample) {
     }];
     
     
-    // 2. Create the layout for the bubble chart.----------------------------
+    // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
       title: 'Bacteria Cultures Per Sample',
       plot_bgcolor: "#E4E6E7",
-      paper_bgcolor: "#9FA39E",
+      paper_bgcolor: "#E4E6E7",
       xaxis: { title: "OTU ID" },
       font: {
         family: "Goudy Old Style Bold"
@@ -144,6 +145,68 @@ function buildCharts(sample) {
     // 3. Use Plotly to plot the data with the layout.
     Plotly.newPlot("bubble", bubbleData, bubbleLayout);
   
+
+
+    // 1. Create a variable that filters the metadata array for the object with the desired sample number.
+    var GresultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+   
+    // Create a variable that holds the first sample in the array.
+    
+    // 2. Create a variable that holds the first sample in the metadata array.
+    
+    var GresultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+    var Gresult = GresultArray[0];
+    
+
+    // Create variables that hold the otu_ids, otu_labels, and sample_values.
+
+    var gaugeOtuLabels = result.otu_labels;
+    var gaugeSampleValues = result.sample_values; 
+
+    // 3. Create a variable that holds the washing frequency.
+    var GWfreq = parseFloat(Gresult.wfreq);
+    
+    console.log(GWfreq);
+
+    
+    // 4. Create the trace for the gauge chart.
+    var gaugeData = {
+    domain: { x: [0, 1], y: [0, 1] },
+    value: GWfreq,
+    title: { text: "Belly Button Washing Frequency" },
+    type: "indicator",
+    mode: "gauge+number",
+    // delta: { reference: 8 },
+    gauge: {
+      axis: { range: [null, 10] },
+      steps: [
+        { range: [0, 2], color: "black" },
+        { range: [0, 10], color: "gray" }
+        ]
+        // threshold: {
+        //   line: { color: "red", width: 4 },
+        //   thickness: 0.75,
+        //   value: 9
+        // }
+    }
+    
+    };
+    
+    // 5. Create the layout for the gauge chart.
+    var gaugeLayout = { 
+      width: 600, height: 500, margin: { t: 0, b: 0 }
+    };
+
+    // 6. Use Plotly to plot the gauge data and layout.
+    Plotly.newPlot('gauge', gaugeData, gaugeLayout);
+
+
+
+
+
+
+
+
   });
 }
 
