@@ -132,6 +132,7 @@ function buildCharts(sample) {
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
       title: 'Bacteria Cultures Per Sample',
+      autosize: true,
       plot_bgcolor: "#E4E6E7",
       paper_bgcolor: "#E4E6E7",
       xaxis: { title: "OTU ID" },
@@ -170,7 +171,7 @@ function buildCharts(sample) {
 
     
     // 4. Create the trace for the gauge chart.
-    var gaugeData = {
+    var gaugeData = [{
     domain: { x: [0, 1], y: [0, 1] },
     value: GWfreq,
     title: { text: "Belly Button Washing Frequency" },
@@ -180,21 +181,21 @@ function buildCharts(sample) {
     gauge: {
       axis: { range: [null, 10] },
       steps: [
-        { range: [0, 2], color: "black" },
-        { range: [0, 10], color: "gray" }
+        { range: [0, 2], color: "red" },
+        { range: [2, 4], color: "orange" },
+        { range: [4, 6], color: "yellow" },
+        { range: [6, 8], color: "lime" },
+        { range: [8, 10], color: "green" },
+        
         ]
-        // threshold: {
-        //   line: { color: "red", width: 4 },
-        //   thickness: 0.75,
-        //   value: 9
-        // }
+        
     }
     
-    };
+    }];
     
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
-      width: 600, height: 500, margin: { t: 0, b: 0 }
+      width: 400, height: 300, margin: { t: 0, b: 0 }
     };
 
     // 6. Use Plotly to plot the gauge data and layout.
